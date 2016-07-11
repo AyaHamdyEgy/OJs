@@ -1,0 +1,32 @@
+#include <iostream>
+#include <algorithm>
+#include <math.h>
+#include <iomanip>
+#include <vector>
+#include <queue>
+#include <map>
+#include <set>
+#include <stack>
+#include <stdlib.h>
+#include <string>
+#include <string.h>
+#include <fstream>
+#include <sstream>
+#include <cmath>
+
+#define OO 1e9
+#define MAX 100005
+#define lp(i,x,y) for(int i = x; i < y; i++)
+#define all(v) v.begin(),v.end()
+#define ll long long
+#define vi vector<int>
+#define ii pair<int,int>
+#define vii vector< pair<int,int> >
+
+using namespace std;
+
+int main()
+{
+
+    return 0;
+}
