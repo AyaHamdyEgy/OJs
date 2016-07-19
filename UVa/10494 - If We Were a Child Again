@@ -1,0 +1,37 @@
+#include <iostream>
+#include <math.h>
+#include <stdlib.h>
+#include <sstream>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    string s;
+    long long x;
+    char op;
+
+    while(cin >> s >> op >> x)
+    {
+        string res="",str="";
+
+        for(int i = 0 ; i < s.length() ; i++)
+        {
+            str += s[i];
+            long long sub = atoll(str.c_str());
+
+            if(sub/x!=0 || res!="") res+=(char)(sub/x+'0');
+
+            stringstream ss;
+            ss << (sub%x);
+            ss >> str;
+
+        }
+        if(res=="") res="0";
+        if(op=='/') cout << res << "\n";
+        else cout << str << "\n";
+    }
+
+    return 0;
+}
