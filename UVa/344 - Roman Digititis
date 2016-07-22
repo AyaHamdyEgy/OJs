@@ -1,0 +1,35 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    while(cin >> n && n)
+    {
+        int i=0,v=0,x=0,l=0,c=0;
+        for(int r = 1 ; r <= n ; r++)
+        {
+            int k=r/10;
+            if(k==10) c++;
+            else if(k == 9) c++,x++;
+            else if(k >= 5) l++,x+=(k-5);
+            else if(k == 4) x++,l++;
+            else x+=k;
+
+            k=r%10;
+            if(k==9) x++,i++;
+            else if(k==4) v++,i++;
+            else if(k>=5) v++,i+=(k-5);
+            else i+=k;
+        }
+        cout << n << ": ";
+        cout << i << " i, ";
+        cout << v << " v, ";
+        cout << x << " x, ";
+        cout << l << " l, ";
+        cout << c << " c";
+        cout << "\n";
+    }
+    return 0;
+}
