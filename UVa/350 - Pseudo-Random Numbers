@@ -1,0 +1,22 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int Z,L,M,I;
+    int t = 1;
+
+    while( cin >> Z >> I >> M >> L && (Z || I || M || L))
+    {
+        int a[10000]={};
+        int res=0;
+        while(a[L]==0)
+        {
+            a[L]=res++;
+            L = (Z*L+I)%M;
+        }
+        cout << "Case " << t++ << ": " << res-a[L] << "\n";
+    }
+    return 0;
+}
