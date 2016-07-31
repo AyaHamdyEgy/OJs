@@ -1,0 +1,29 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    int stp,m;
+    while(cin >> stp >> m)
+    {
+        int res = 0;
+        int s=stp%m;
+        bool n[100000]={};
+        int i = 0;
+        while(!n[i])
+        {
+            res++;
+            n[i]=1;
+            i=(i+s)%m;
+        }
+
+        cout << setw(10) << stp << setw(10) << m << "     ";
+        if(res==m) cout << "Good Choice";
+        else cout << "Bad Choice";
+        cout << "\n\n";
+    }
+
+    return 0;
+}
