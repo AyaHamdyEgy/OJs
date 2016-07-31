@@ -1,0 +1,23 @@
+#include <iostream>
+
+using namespace std;
+
+int pow(int B ,int P ,int M)
+{
+    if(P==0) return 1;
+    if(P==1) return B;
+
+    long long x = pow(B,P/2,M);
+    if(P%2==0) return (1LL*x*x)%M;
+    else return ( ( (1LL*x*x)%M )*B ) %M;
+}
+
+int main()
+{
+    int B,P,M;
+    while(cin >> B >> P >> M)
+    {
+        cout << pow(B%M,P,M) << "\n";
+    }
+    return 0;
+}
