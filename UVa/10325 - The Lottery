@@ -1,0 +1,36 @@
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+
+using namespace std;
+
+long long M,N,m[15];
+
+long long lcm(long long a, long long b)
+{
+    return (a*b)/__gcd(a,b);
+}
+
+int inc_exc (int ind , long long d , int sign)
+{
+    if(ind==M)
+    {
+        if(d==1) return 0;
+        return sign * N / d;
+    }
+    return inc_exc(ind+1 , d , sign) + inc_exc(ind+1 , lcm(d,m[ind]) , sign * -1);
+
+
+}
+int main()
+{
+
+    while(cin >> N >> M)
+    {
+        for(int i = 0 ; i < M ; i++) cin >> m[i];
+
+        cout << N-inc_exc(0 , 1 , -1) << "\n";
+    }
+
+    return 0;
+}
