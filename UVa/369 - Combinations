@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+#include <math.h>
+#include <algorithm>
+
+using namespace std;
+
+long long C(int n , int m)
+{
+    long long res = 1 ;
+    vector <int> v(n-m-1);
+    for(int i = 0 ; i < n-m-1 ; i++) v[i]=i+2;
+    for(int i = n ; i >=m+1 ; i--)
+    {
+        int x = i;
+        for(int j = 0 ; j < n-m-1; j++)
+        {
+            int g = __gcd(x,v[j]);
+            v[j]/=g;
+            x/=g;
+        }
+        res*=1LL*x;
+    }
+    return res;
+}
+
+int main()
+{
+    int n,m;
+    while(cin >> n >> m && (n||m))
+    {
+        cout << n << " things taken " << m << " at a time is " << C(n,min(m,n-m)) << " exactly.\n";
+    }
+    return 0;
+}
