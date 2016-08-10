@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <stdlib.h>
+#include <stdio.h>
+#include <fstream>
+
+using namespace std;
+
+int l1,l2,aa,bb,r,i;
+
+string sum(string a,string b)
+{
+    int res[62]={};
+    r=0;
+    l1=a.length();
+    l2=b.length();
+    for(i = 0 ; i<l1 || i<l2 ; i++)
+    {
+        aa = (i<l1) ? (int)(a[l1-i-1]-'0') : 0;
+        bb = (i<l2) ? (int)(b[l2-i-1]-'0') : 0;
+        res[i]=(aa+bb+r)%10;
+        r = (aa+bb+r)/10;
+    }
+    if(r!=0) res[i]=r;
+    else i--;
+    string s="";
+    for(  ; i >=0 ; i--) s+=(char)('0'+res[i]);
+    return s;
+}
+
+int main()
+{
+    cout << "1\n1 1\n";
+    vector<string> v(2,"1");
+    while((int)(v[v.size()/2]).length()<61)
+    {
+        v.insert(v.begin(),"1");
+        cout << "1 ";
+        for(int i = 1 ; i < (int)v.size()-1 ; i++)
+        {
+            v[i]=sum(v[i],v[i+1]);
+            cout << v[i] << ' ';
+        }
+        cout << "1\n";
+    }
+
+    return 0;
+}
