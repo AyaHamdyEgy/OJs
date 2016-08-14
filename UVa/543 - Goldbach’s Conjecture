@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    vector <int> p;
+    for(int n = 3 ; n < 1000000 ; n+=2)
+    {
+        bool s=1;
+        int i=2;
+        for( ; i*i<n && s ; i++)
+            if(n%i==0) s=0;
+        if(i*i==n) s=0;
+        if(s) p.push_back(n);
+    }
+    vector <bool> pp(1000001,1);
+    pp[0]=0;pp[1]=0;
+    for(int i = 2 ; i<=1000 ; i++)
+    {
+        if(pp[i])
+        {
+            for(int j = i+i ; j<=1000000 ; j+=i) pp[j]=0;
+        }
+    }
+    int N,a;
+    int l = p.size();
+    while(cin >> N && N)
+    {
+        a=0;
+        for(int i = 0 ; i < l && 2*p[i]<=N ; i++)
+        {
+            a=p[i];
+            if(pp[N-a]) break;
+        }
+
+        if(a) cout << N << " = " << a << " + " << N-a << "\n";
+        else cout << "Goldbach's conjecture is wrong.";
+    }
+    return 0;
+}
