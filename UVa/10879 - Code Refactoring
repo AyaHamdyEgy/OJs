@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <stdio.h>
+
+using namespace std;
+
+int main()
+{
+    int N,k;
+    cin >> N;
+    for(int n = 0 ; n < N ; n++)
+    {
+        vector <int> f;
+
+        cin >> k;
+        for(int i = 2 ; i*i < k && f.size()<4 ; i++)
+        {
+            if(k%i==0)
+            {
+                f.push_back(i);
+                f.push_back(k/i);
+            }
+        }
+        printf("Case #%d: %d = %d * %d = %d * %d\n",n+1,k,f[0],f[1],f[2],f[3]);
+    }
+    return 0;
+}
