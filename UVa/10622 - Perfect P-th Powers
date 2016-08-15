@@ -1,0 +1,35 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    long long n,cnt,x;
+    bool s;
+    while(cin >> n && n)
+    {
+        s=1;
+        int neg=0;
+        if(n<0) {n*=-1;neg=1;}
+        for(long long i = 2 ; i*i <= n && s; i++)
+        {
+            cnt=0;
+            x=n;
+            while(x%i==0)
+            {
+                x/=i;
+                cnt++;
+            }
+            if(x==1)
+            {
+                if((neg && cnt%2==1) || !neg)
+                {
+                    cout << cnt << "\n";
+                    s=0;
+                }
+            }
+        }
+        if(s) cout << 1 << "\n";
+    }
+    return 0;
+}
