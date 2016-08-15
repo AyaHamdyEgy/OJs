@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int L,U,d;
+    bool s;
+    vector <int> primes(1,2);
+    for(int i = 3 ; i<=32000 ; i+=2)
+    {
+        s=1;
+        for(int j = 2 ; j*j<=i && s ; j++)
+        {
+            if(i%j==0) s=0;
+        }
+        if(s) primes.push_back(i);
+    }
+
+    vector < vector <int> > ranges;
+    vector <int> v;
+    d=0;
+    for(int i = 1 ; i <(int)primes.size() ; i++)
+    {
+        if(primes[i]-primes[i-1]==d)
+        {
+            v.push_back(primes[i]);
+        }
+        else
+        {
+            if((int)v.size()>=3) ranges.push_back(v);
+            v.clear();
+            d=primes[i]-primes[i-1];
+            v.push_back(primes[i-1]);
+            v.push_back(primes[i]);
+        }
+
+    }
+
+    int len = (int) ranges.size();
+
+    while(cin >> L >> U && (L||U))
+    {
+        if(L>U) swap(L,U);
+
+        int start=0;
+        while(start<len && L>ranges[start][0]) start++;
+
+        int end=0;
+        while(end<len && U>=ranges[end][(int)ranges[end].size()-1]) end++;
+
+        for(int i = start ; i < end  ; i++)
+        {
+            for(int j = 0 ; j < (int)ranges[i].size()-1 ; j++)
+                cout << ranges[i][j] << ' ';
+            cout << ranges[i][(int)ranges[i].size()-1] << "\n";
+        }
+    }
+
+    return 0;
+}
