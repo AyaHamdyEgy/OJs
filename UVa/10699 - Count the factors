@@ -1,0 +1,32 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n,cnt,res,x;
+    while(cin >> n && n)
+    {
+        cnt=0,res=0;
+        x=n;
+        while(n%2==0)
+        {
+            n/=2;
+            cnt=1;
+        }
+        res+=cnt;
+        for(int i = 3 ; i*i <= n ; i+=2)
+        {
+            cnt=0;
+            while(n%i==0)
+            {
+                n/=i;
+                cnt=1;
+            }
+            res+=cnt;
+        }
+        if(n>1) res++;
+        cout << x << " : " << res << "\n";
+    }
+    return 0;
+}
