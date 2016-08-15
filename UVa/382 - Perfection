@@ -1,0 +1,30 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+    int n,i,sum,j;
+    string s[]={"DEFICIENT","PERFECT","ABUNDANT"};
+    cout << "PERFECTION OUTPUT\n";
+    while(cin >> n && n)
+    {
+        if(n==1) sum=0;
+        else sum=1;
+        for(j = 2 ; j*j<n ; j++)
+        {
+            if(n%j==0)
+                sum+=(n/j+j);
+        }
+        if(j*j==n) sum+=j;
+
+        if(sum < n) i=0;
+        else if(sum==n) i=1;
+        else i=2;
+
+        cout << setw(5) << n << "  " << s[i] << "\n";
+    }
+    cout << "END OF OUTPUT\n";
+    return 0;
+}
