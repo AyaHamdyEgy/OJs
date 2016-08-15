@@ -1,0 +1,48 @@
+#include <iostream>
+
+using namespace std;
+
+int sumD(int n)
+{
+    int sum=0;
+    while(n)
+    {
+        sum+=(n%10);
+        n/=10;
+    }
+    return sum;
+}
+int main()
+{
+    int T,n,x,sumd,sumdP,i;
+    bool s;
+    cin >> T;
+    while(T--)
+    {
+        s=1;
+        cin >> n;
+        for(i = n+1 ; s ; i++)
+        {
+            sumd=sumD(i);
+
+            x=i;
+            sumdP=0;
+            for(int j = 2 ; j*j <= x ; j++)
+            {
+                while(x%j==0)
+                {
+                    sumdP+=sumD(j);
+                    x/=j;
+                }
+            }
+
+            if(sumdP==0) continue;
+            if(x>1) sumdP+=sumD(x);
+
+            if(sumd==sumdP) s=0;
+        }
+        cout << i-1 << "\n";
+    }
+
+    return 0;
+}
