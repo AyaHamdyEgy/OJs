@@ -1,0 +1,66 @@
+#include <iostream>
+#include <sstream>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+    int p,e,cnt;
+    string s;
+    while(getline(cin,s))
+    {
+        vector <int> x1;
+        vector <int> x2;
+
+        bool st =0;
+
+        stringstream ss;
+        ss << s;
+        ss >> p;
+        if(p==0) break;
+        ss >> e;
+        long long res=1;
+        while(e)
+        {
+            e--;
+            res*=p;
+        }
+        while(ss >> p >> e)
+        {
+            while(e)
+            {
+                e--;
+                res*=p;
+            }
+        }
+        res--;
+        for(int i = 2 ; i*i <= res ; i++)
+        {
+            cnt=0;
+            while(res%i==0)
+            {
+                cnt++;
+                res/=i;
+            }
+            if(cnt)
+            {
+                x1.push_back(i);
+                x2.push_back(cnt);
+            }
+        }
+        if(res>1)
+        {
+            x1.push_back(res);
+            x2.push_back(1);
+        }
+        for(int k = x1.size()-1 ; k >= 0 ; k--)
+        {
+            if(st) cout << ' ';
+            st=1;
+            cout << x1[k] << ' ' << x2[k];
+        }
+        cout << "\n";
+    }
+    return 0;
+}
