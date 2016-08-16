@@ -1,0 +1,38 @@
+#include <iostream>
+
+using namespace std;
+
+long long fac_primePow(long long n, long long p)
+{
+    long long pow=0;
+    for(long long i = p ; i <= n ; i*=p)
+        pow+=(n/i);
+    return pow;
+}
+int main()
+{
+    long long n,x,m;
+    while(cin >> n >> m)
+    {
+        bool s = 1;
+        long long cnt;
+        x=m;
+        for(long long i = 2 ; i*i<=x && s; i++)
+        {
+            cnt=0;
+            while(x%i==0)
+            {
+                x/=i;
+                cnt++;
+            }
+            if(cnt>fac_primePow(n,i)) s=0;
+        }
+        if(x>1) if(fac_primePow(n,x)==0) s=0;
+
+        cout << m;
+        if(!s || m==0) cout << " does not divide ";
+        else cout << " divides ";
+        cout << n << "!\n";
+    }
+    return 0;
+}
