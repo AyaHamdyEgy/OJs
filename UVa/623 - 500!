@@ -1,0 +1,30 @@
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    while(cin >> n)
+    {
+        printf("%d!\n",n);
+        int arr[2568]={};
+        arr[0]=1;
+        for(int i = 2 ; i <= n ; i++)
+        {
+            int r=0;
+            for(int j = 0 ; j <=2567 ; j++)
+            {
+                arr[j]=arr[j]*i+r;
+                r=arr[j]/10;
+                arr[j]%=10;
+            }
+        }
+        int i=2567;
+        for( ; i > 0 ; i--) if(arr[i]) break;
+        for( ; i >= 0 ; i--) printf("%d",arr[i]);
+        printf("\n");
+    }
+    return 0;
+}
