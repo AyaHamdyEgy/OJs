@@ -1,0 +1,43 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int Fac_primePow(int n)
+{
+    int pow=0;
+    for(int i = 5 ; i <= n ; i*=5)
+        pow+=(n/i);
+    return pow;
+}
+
+int main()
+{
+    int n,d,r;
+    while(cin >> n)
+    {
+        int x2 = Fac_primePow(n);
+        int x5 = x2;
+
+        d=1;
+        for(int i = 2 ; i<=n ; i++)
+        {
+            r=i;
+            while(r%2==0 && x2)
+            {
+                x2--;
+                r/=2;
+            }
+            while(r%5==0 && x5)
+            {
+                x5--;
+                r/=5;
+            }
+            d*=r;
+            d%=10;
+        }
+
+        cout << setw(5) << n << " -> " << d << "\n";
+    }
+    return 0;
+}
