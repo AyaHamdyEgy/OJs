@@ -1,0 +1,53 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+int FactN_primePow(int n ,int p)
+{
+    int pow=0;
+
+    for(int i = p ; i <= n ; i*=p)
+        pow+=(n/i);
+
+    return pow;
+}
+
+int main()
+{
+    bool s;
+    vector <int> p(1,2);
+    for(int i = 3 ; i < 100 ; i+=2)
+    {
+        s=1;
+        for(int j=2 ; j*j<= i && s; j++)
+        {
+            if(i%j==0) s=0;
+        }
+        if(s) p.push_back(i);
+    }
+
+    int n,x;
+    while(cin >> n && n)
+    {
+        int l=0;
+        vector <int> res(25);
+        cout << setw(3) << n << "! =";
+
+        //for each prime
+        for(int i = 0 ; i < 25 ; i++)
+        {
+            res[i]=FactN_primePow(n,p[i]);
+            if(res[i]) l=i;
+        }
+
+        for(int i = 0 ; i <= l ; i++)
+        {
+            if(i==15) cout << "\n      ";
+            cout << setw(3) << res[i];
+        }
+        cout << "\n";
+    }
+    return 0;
+}
