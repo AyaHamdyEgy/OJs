@@ -1,0 +1,75 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+
+using namespace std;
+
+long long fac_primePow(int n, int p)
+{
+    long long pow=0;
+
+    for(int i = p ; i<=n ; i*=p)
+        pow+=(n/i);
+
+    return pow;
+}
+
+int main()
+{
+    vector <int> primes;
+    vector <bool> pr(10001,1);
+    for(int i = 2 ; i<=10000 ; i++)
+    {
+        if(pr[i])
+        {
+            primes.push_back(i);
+            for(int j = i+i ; j<=10000 ; j+=i) pr[j]=0;
+        }
+    }
+    int len = (int)primes.size();
+    int p,q,r,s;
+
+    while(cin >> p >> q >> r >> s)
+    {
+        vector <long long> pows((int)primes.size());
+
+        for(int i = 0 ; i<(int)primes.size() ; i++)
+        {
+            int x=primes[i];
+            pows[i]=fac_primePow(p,x)-fac_primePow(q,x)-fac_primePow(p-q,x)-fac_primePow(r,x)+fac_primePow(s,x)+fac_primePow(r-s,x);
+        }
+
+        double res=1;
+        for(int i = 0 ; i<len ; i++)
+        {
+            while(pows[i]>0)
+            {
+                res*=primes[i];
+                pows[i]--;
+                if(res>=1e8)
+                {
+                    for(int j = 0 ; j<len ; j++)
+                    {
+                        while(pows[j]<0 && res>=primes[j])
+                        {
+                            res/=primes[j];
+                            pows[j]++;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i = 0 ; i<len ; i++)
+        {
+            while(pows[i]<0)
+            {
+                res/=primes[i];
+                pows[i]++;
+            }
+        }
+
+        cout << fixed << setprecision(5) << res << "\n";
+    }
+    return 0;
+}
