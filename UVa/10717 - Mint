@@ -1,0 +1,52 @@
+#include <iostream>
+#include <math.h>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main()
+{
+    int n,t,x;
+    int a[50];
+    while(cin >> n >> t && (n||t) )
+    {
+        vector <int> xx;
+        for(int i = 0 ; i < n ; i++) cin >> a[i];
+
+        for(int a1 = 0 ; a1 < n ; a1++)
+        {
+            for(int a2 = a1+1 ; a2 < n ; a2++)
+            {
+                for(int a3 = a2+1 ; a3 < n ; a3++)
+                {
+                    for(int a4 = a3+1 ; a4 < n ; a4++)
+                    {
+                        x = a[a1]*a[a2]/__gcd(a[a1],a[a2]);
+                        x = x*a[a3]/__gcd(x,a[a3]);
+                        x = x*a[a4]/__gcd(x,a[a4]);
+                        xx.push_back(x);
+                    }
+
+                }
+
+            }
+        }
+
+        int len = (int)xx.size();
+        for(int i = 0 ; i < t ; i++)
+        {
+            cin >> x;
+            int mn=1e9;
+            int mx=0;
+            for(int i = 0 ; i < len ; i++)
+            {
+                mx = max((int)floor((double)x/xx[i])*xx[i],mx);
+                mn = min((int)ceil((double)x/xx[i])*xx[i],mn);
+            }
+            cout << mx << ' ' << mn << "\n";
+        }
+    }
+
+    return 0;
+}
