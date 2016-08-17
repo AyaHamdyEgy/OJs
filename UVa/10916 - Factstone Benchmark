@@ -1,0 +1,31 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int main()
+{
+    int rt[21];
+    for(int y=1960, r=4 ; y<=2160 ; y+=10, r*=2)
+        rt[(y-1960)/10]=r;
+
+    int a[263000];
+    double res = 0;
+    for(int i = 2 ; i<263000 ; i++)
+    {
+        res+=log2(i);
+        a[i]=1+floor(res);
+    }
+
+    int y;
+    while(cin >> y && y)
+    {
+        int x = rt[((y/10)*10-1960)/10];
+
+        int i = 2;
+        while(a[i]<=x) i++;
+        cout << i-1 << "\n";
+    }
+
+    return 0;
+}
