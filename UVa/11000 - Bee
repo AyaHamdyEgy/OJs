@@ -1,0 +1,29 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int y;
+    while(cin >> y && y!=-1)
+    {
+        long long a=0,b=1,c=1,d;
+        long long t=2,m=1;
+
+        if(y==0) t=1,m=0;
+        for(int i = 2 ; i<=y ;i++)
+        {
+            d =(b+c);
+            t+=d;
+            m+=(a+b);
+
+            a=b;
+            b=c;
+            c=d;
+        }
+        cout << m << ' ' << t << "\n";
+    }
+
+
+    return 0;
+}
