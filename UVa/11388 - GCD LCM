@@ -1,0 +1,17 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int T,g,l;
+    cin >> T;
+    while(T--)
+    {
+        cin >> g >> l;
+        if(l%g==0) cout << g << ' ' << l << "\n";
+        else cout << "-1\n";
+
+    }
+    return 0;
+}
