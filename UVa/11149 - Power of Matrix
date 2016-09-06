@@ -1,0 +1,91 @@
+#include <iostream>
+#include <vector>
+#include <stdlib.h>
+#include <stdio.h>
+
+using namespace std;
+
+int n,k;
+
+vector < vector<int> > I(int x)
+{
+    vector < vector<int> > a( x , vector<int>(x,0) );
+    for(int i = 0; i < x ; i++) a[i][i]=1;
+    return a;
+}
+
+vector < vector<int> > multiply(vector < vector<int> > a ,vector < vector<int> > b)
+{
+    vector < vector<int> > m(n,vector<int>(n,0));
+    for(int i = 0 ; i < n ; i++)
+    {
+        for(int k = 0 ; k < n ; k++)
+        {
+            for(int j = 0 ; j < n ; j++)
+            {
+                m[i][j]+=a[i][k]*b[k][j];
+                m[i][j]%=10;
+            }
+        }
+    }
+    return m;
+}
+
+vector < vector<int> > addI(vector < vector<int> > a)
+{
+    for(int i = 0 ; i < n ; i++) a[i][i]+=1;
+    return a;
+}
+
+
+vector < vector<int> > pow(vector < vector<int> > a , int k)
+{
+    if(k==0) return I(n);
+
+    if(k%2==1)
+        return multiply(a, pow(a,k-1));
+
+    return pow( multiply(a,a) , k/2 );
+
+}
+
+vector < vector<int> > sumPow(vector < vector<int> > a, int k)
+{
+    if(k==0) return vector < vector<int> > (n,vector<int>(n,0));
+
+    if(k%2==1) return multiply(a, addI( sumPow(a,k-1) ) );
+
+    return multiply( addI ( pow(a,k/2) ) , sumPow(a,k/2) );
+}
+
+int main()
+{
+
+    vector < vector<int> > a;
+    while(cin >> n >> k && n)
+    {
+        a = vector < vector<int> > (n,vector<int>(n));
+        for(int i = 0 ; i < n ; i++)
+        {
+            for(int j = 0 ; j < n ; j++)
+            {
+                cin >> a[i][j];
+                a[i][j]%=10;
+            }
+        }
+
+        a = sumPow(a,k);
+
+        for(int i = 0 ; i < n ; i++)
+        {
+            for(int j = 0 ; j < n ; j++)
+            {
+                printf("%d",(a[i][j])%10);
+                if(j!=n-1) printf(" ");
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+    return 0;
+}
