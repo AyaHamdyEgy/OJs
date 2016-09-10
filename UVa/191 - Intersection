@@ -1,0 +1,54 @@
+#include <iostream>
+#include <complex>
+#include <fstream>
+
+
+using namespace std;
+
+typedef complex<double> point;
+
+#define EPS 1e-9
+#define vec(a,b) ((b)-(a))
+#define cross(a,b) (conj(a)*(b)).imag()
+
+bool IsInter(point a, point b , point p , point q)
+{
+    return (( cross( vec(a,p),vec(a,b) ) * cross( vec(a,b),vec(a,q) )  ) > -EPS)
+    && ( (cross( vec(p,a),vec(p,q) )  * cross( vec(p,q),vec(p,b) )  ) > -EPS)
+    && !(cross( vec(a,p),vec(a,b))==0 && cross( vec(a,b),vec(a,q) )==0)
+    && !(cross( vec(p,a),vec(p,q))==0 && cross( vec(p,q),vec(p,b) )==0) ;
+}
+
+int main()
+{
+    int n;
+    double xStart,yStart,xEnd,yEnd,x1,y1,x2,y2;
+
+    ofstream out;
+    out.open("out.txt");
+
+    cin >> n;
+    for(int t=0 ; t<n ; t++)
+    {
+        cin >> xStart >> yStart >> xEnd >> yEnd;
+
+        point start(xStart,yStart);
+        point end(xEnd,yEnd);
+
+        cin >> x1 >> y1 >> x2 >> y2;
+
+        double xMin=min(x1,x2),yMin=min(y1,y2),xMax=max(x1,x2),yMax=max(y1,y2);
+
+        if ( IsInter(point(xMin,yMin),point(xMin,yMax),start,end)
+             || IsInter(point(xMin,yMin),point(xMax,yMin),start,end)
+             || IsInter(point(xMin,yMax),point(xMax,yMax),start,end)
+             || IsInter(point(xMax,yMin),point(xMax,yMax),start,end)
+             || (xStart>=xMin && xStart <=xMax && yStart>=yMin && yStart <=yMax)
+             || (xEnd>=xMin && xEnd <=xMax && yEnd>=yMin && yEnd <=yMax) )
+            cout << "T\n";
+        else cout << "F\n";
+
+    }
+
+    return 0;
+}
