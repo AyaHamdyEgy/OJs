@@ -1,0 +1,64 @@
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <stdlib.h>
+#include <iomanip>
+#include <fstream>
+
+using namespace std;
+
+
+
+int main()
+{
+    int n;
+    cin >> n;
+    ofstream out;
+    out.open("out.txt");
+
+    cout << "INTERSECTING LINES OUTPUT\n";
+
+    int x1,x2,x3,x4,y1,y2,y3,y4;
+
+    while(n--)
+    {
+        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
+
+        double A1,B1,C1,A2,B2,C2;
+
+        A1=y2-y1;
+        B1=x1-x2;
+        C1=A1*x1+B1*y1;
+
+        A2=y4-y3;
+        B2=x3-x4;
+        C2=A2*x3+B2*y3;
+
+
+        if(B1*A2==B2*A1)
+        {
+            if(A1==A2 && A1==0)
+            {
+                if(C1*B2==C2*B1) cout << "LINE\n";
+                else cout << "NONE\n";
+            }
+            else if(C1*A2==C2*A1) cout << "LINE\n";
+            else cout << "NONE\n";
+        }
+        else
+        {
+            cout << "POINT ";
+            if(B2==0) swap(A1,A2),swap(B1,B2),swap(C1,C2);
+
+            double x=(C1*B2-C2*B1)/(A1*B2-A2*B1);
+            if(fabs(x)<=1e-9) x=0;
+            double y = (C2-A2*x)/B2;
+            if(fabs(y)<=1e-9) y=0;
+
+            cout << fixed << setprecision(2) << x << ' ' << y;
+            cout << "\n";
+        }
+    }
+    cout << "END OF OUTPUT\n";
+    return 0;
+}
