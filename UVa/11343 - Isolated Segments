@@ -1,0 +1,69 @@
+#include <iostream>
+#include <complex>
+
+using namespace std;
+
+typedef complex<double> point;
+
+#define x real()
+#define y imag()
+#define vec(a,b) ((b)-(a))
+#define dot(a,b) ((conj(a)*(b)).x)
+#define cross(a,b) ((conj(a)*(b)).y)
+#define EPS 1e-9
+
+bool inter(point a , point b , point c , point d)
+{
+    bool s=1;
+
+    double d1 = cross(vec(a,d),vec(a,b));
+    double d2 = cross(vec(a,b),vec(a,c));
+    if(d1*d2<-EPS) s=0;
+
+    double d3 = cross(vec(d,a),vec(d,c));
+    double d4 = cross(vec(d,c),vec(d,b));
+    if(d3*d4<-EPS) s=0;
+
+    if( (d1==0 && d2==0) || (d3==0 && d4==0) )
+    {
+        //collinear
+        int r1=0,r2=0;
+        if(dot(vec(a,b),vec(a,c))>=-EPS) r1++;
+        if(dot(vec(a,b),vec(a,d))>=-EPS) r1++;
+        if(dot(vec(b,a),vec(b,c))>=-EPS) r2++;
+        if(dot(vec(b,a),vec(b,d))>=-EPS) r2++;
+        if(r1==0 || r2==0) s=0;
+    }
+    return s;
+}
+
+int main()
+{
+    int n,m,T;
+    bool s;
+    point p1[100],p2[100];
+    cin >> n;
+    while(n--)
+    {
+        cin >> m;
+        T=0;
+        int x1,y1,x2,y2;
+        for(int i = 0 ; i < m ; i++)
+        {
+            cin >> x1 >> y1 >> x2 >> y2;
+            p1[i]=point(x1,y1);
+            p2[i]=point(x2,y2);
+        }
+        for(int i = 0 ; i < m ; i++)
+        {
+            s=1;
+            for(int j = 0 ; j < m && s; j++)
+            {
+                if(j!=i) s=!inter(p1[i],p2[i],p1[j],p2[j]);
+            }
+            if(s) T++;
+        }
+        cout << T << "\n";
+    }
+    return 0;
+}
