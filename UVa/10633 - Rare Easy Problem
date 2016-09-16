@@ -1,0 +1,28 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    unsigned long long in,N;
+    while(cin >> in && in)
+    {
+        int x=0;
+        if(in%9==0)
+        {
+            for(int i = 0 ; i < 10 ; i++)
+            {
+                N=((in/9)-1)*10+i;
+                if(x!=0) cout << ' ';
+                if(N-N/10==in) cout << N,x++;
+            }
+        }
+        if(x!=0) cout << ' ';
+        N=(in/9)*10+(in%9);
+        cout << N;
+
+        cout << "\n";
+
+    }
+    return 0;
+}
