@@ -1,0 +1,32 @@
+#include <iostream>
+
+using namespace std;
+
+long long ex_euc(long long a,long long b, long long &x, long long &y)
+{
+    if(b==0)
+    {
+        x=1;
+        y=0;
+        return a;
+    }
+
+    long long g = ex_euc(b,a%b,y,x);
+
+    y-=(a/b)*x;
+
+    return g;
+}
+
+int main()
+{
+    long long a,b;
+    long long x,y;
+    while(cin >> a >> b)
+    {
+        x=1;y=0;
+        long long D = ex_euc(a,b,x,y);
+        cout << x << ' ' << y << ' ' << D << "\n";
+    }
+    return 0;
+}
