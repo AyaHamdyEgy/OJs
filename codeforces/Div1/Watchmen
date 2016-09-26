@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+bool compS(pair<int,int> p1 , pair<int,int> p2)
+{
+    return p1.second < p2.second;
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector < pair<int,int> > xy(n);
+    int x,y;
+    for(int i = 0 ; i < n ; i++)
+    {
+        cin >> x >> y;
+        xy[i]=make_pair(x,y);
+    }
+
+    long long p = 0;
+    sort(xy.begin(),xy.end());
+    int cnt1=0,cnt2=0,cnt3=0;
+    for(int i = 1 ; i < n ; i++)
+    {
+        if(xy[i].first==xy[i-1].first) cnt1++;
+        else
+        {
+            p+=1LL*(cnt1)*(cnt1+1)/2;
+            cnt1=0;
+        }
+        if(xy[i].first==xy[i-1].first && xy[i].second==xy[i-1].second) cnt3++;
+        else
+        {
+            p-=1LL*(cnt3)*(cnt3+1)/2;
+            cnt3=0;
+        }
+    }
+    sort(xy.begin(),xy.end(),compS);
+    for(int i = 1 ; i < n ; i++)
+    {
+        if(xy[i].second==xy[i-1].second) cnt2++;
+        else
+        {
+            p+=1LL*(cnt2)*(cnt2+1)/2;
+            cnt2=0;
+        }
+    }
+
+    if(cnt1!=0) p+=1LL*(cnt1)*(cnt1+1)/2;
+    if(cnt2!=0) p+=1LL*(cnt2)*(cnt2+1)/2;
+    if(cnt3!=0) p-=1LL*(cnt3)*(cnt3+1)/2;
+    cout << p << "\n";
+
+    return 0;
+}
