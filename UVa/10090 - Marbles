@@ -1,0 +1,68 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+typedef long long ll;
+
+long long ext_ec(ll a, ll b , ll &x , ll &y)
+{
+    if(b==0)
+    {
+        x=1;
+        y=0;
+        return a;
+    }
+
+    ll g = ext_ec(b,a%b, y , x);
+    y -= (a/b)*x;
+
+    return g;
+}
+
+ll dioph(ll a, ll b, ll c, ll &x, ll &y , bool &sol)
+{
+    ll g = ext_ec(a,b,x,y);
+
+    sol = (c%g==0);
+    if(sol)
+    {
+        x = x*c/g;
+        y = y*c/g;
+    }
+
+    return g;
+}
+
+
+int main()
+{
+    ll n,n1,n2,c1,c2;
+    ll x,y;
+    while(cin >> n && n)
+    {
+        cin >> c1 >> n1 >> c2 >> n2;
+        bool sol=0;
+        ll g = dioph(n1,n2,n,x,y,sol);
+
+        if(n<n1 || n<n2) sol &= (n%min(n1,n2)==0);
+
+        ll k1 = ceil(-(double)x*g/n2);
+        ll k2 = floor((double)y*g/n1);
+
+        sol &= (k2>=k1);
+        if(sol)
+        {
+
+
+            ll t1 = (x+k1*n2/g)*c1+(y-k1*n1/g)*c2;
+            ll t2 = (x+k2*n2/g)*c1+(y-k2*n1/g)*c2;
+
+            if(t2<t1) k1=k2;
+            cout << x+k1*n2/g << ' ' << y-k1*n1/g << "\n";
+        }
+        else cout << "failed\n";
+
+    }
+    return 0;
+}
