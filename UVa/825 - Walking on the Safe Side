@@ -1,0 +1,51 @@
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+bool a[10000][10000];
+int mem[10000][10000];
+int W,N;
+
+int fn(int r,int c)
+{
+    if(a[r][c] || r>=W || c>=N || r<0 || c<0) return 0;
+
+    if(r==W-1 && c==N-1) return 1;
+
+    if(mem[r][c]!=-1) return mem[r][c];
+
+    return mem[r][c] = fn(r,c+1)+fn(r+1,c);
+}
+
+
+int main()
+{
+    int T;
+    cin >> T;
+
+    string s;
+    while(T--)
+    {
+        cin >> W >> N;
+        getline(cin,s);
+
+        memset(a,0,sizeof(a));
+        memset(mem,-1,sizeof(mem));
+
+        for(int i = 0 ; i < W ; i++)
+        {
+            int aa,x;
+            char c;
+            getline(cin,s);
+            stringstream ss;
+            ss << s;
+            ss >> x;
+            while(ss >> aa) a[x-1][aa-1]=1;
+        }
+
+        cout << fn(0,0) << "\n";
+        if(T!=0) cout << "\n";
+    }
+    return 0;
+}
