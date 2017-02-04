@@ -1,0 +1,34 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int N,temp,c,n=0;
+    while(cin >> N && N)
+    {
+        c=0;
+        if(n++>0) cout << "\n";
+        for(int fghij = 1234 ; fghij <= 98765/N ; fghij++)
+        {
+            int abcde = fghij*N;
+            bool vis[10]={};
+            if(abcde<10000 || fghij<10000) vis[0]=1;
+            temp = abcde; while(temp){vis[temp%10]=1; temp/=10;}
+            temp = fghij; while(temp){vis[temp%10]=1; temp/=10;}
+
+            bool s=1;
+            for(int i = 0 ; i < 10 ; i++) if(vis[i]==0) s=0;
+            if(s)
+            {
+                c++;
+                if(abcde<10000) cout << "0";
+                cout << abcde << " / ";
+                if(fghij<10000) cout << "0";
+                cout << fghij << " = " << N << "\n";
+            }
+        }
+        if(c==0) cout << "There are no solutions for " << N << ".\n";
+    }
+    return 0;
+}
