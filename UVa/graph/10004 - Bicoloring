@@ -1,0 +1,56 @@
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int color[200];
+vector <vector <int> > adj;
+
+bool biP(int s)
+{
+    queue <int> q;
+    q.push(s); color[s]=0;
+
+    bool isP=1;
+    while(!q.empty() && isP)
+    {
+        int u=q.front(); q.pop();
+
+        for(int i = 0 ; i < (int)adj[u].size() ; i++)
+        {
+            int child=adj[u][i];
+            if(color[child]==-1)
+            {
+                color[child]=1-color[u];
+                q.push(child);
+            }
+            else if(color[child]==color[u])
+            {
+                isP=0;
+                break;
+            }
+        }
+    }
+    return isP;
+}
+
+int main()
+{
+    int n,l,a,b;
+    while(cin >> n && n)
+    {
+        cin >> l;
+        adj = vector <vector <int> >(n);
+        for(int i = 0 ; i < l ; i++)
+        {
+            cin >> a >> b;
+            adj[a].push_back(b);
+            adj[b].push_back(a);
+        }
+        memset(color,-1,sizeof(color));
+
+        if(biP(0)) cout << "BICOLORABLE.\n";
+        else cout << "NOT BICOLORABLE.\n";
+    }
+    return 0;
+}
