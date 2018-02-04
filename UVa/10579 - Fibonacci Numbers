@@ -3,6 +3,12 @@
 
 using namespace std;
 
+/*
+
+F(5000) fit in more than 1000 digits
+
+*/
+
 vector <int> sum(vector <int> a,vector <int> b)
 {
     vector <int> c(1005,0);
