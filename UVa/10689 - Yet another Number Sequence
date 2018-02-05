@@ -1,0 +1,53 @@
+#include <iostream>
+
+using namespace std;
+
+/*
+
+m=1 >> sequence repeat every 60 numbers
+m=2 >> sequence repeat every 300 numbers
+m=3 >> sequence repeat every 1500 numbers
+m=4 >> sequence repeat every 15000 numbers
+
+f(n) = fib(n-1) * a + fib(n) * b;
+=== (in my code)
+nw   = c       * aa + d      * bb; 
+
+*/
+
+int main()
+{
+    int t; cin >> t;
+    while(t--)
+    {
+        int aa,bb,n,m;
+        cin >> aa >> bb >> n >> m;
+
+        n--;
+        n%=15000;
+
+        int a=0,b=1,c,d;
+        if(n==0) c=0;
+        else if(n==1) c=1,a=1,b=1,n--;
+        else n--;
+
+        while(n--)
+        {
+            c=a+b;
+            c%=10000;
+            a=b;
+            b=c;
+        }
+        d=a+b;
+        
+        int nw = (c*aa+d*bb);
+
+        if(m==1) cout << nw%10;
+        else if(m==2) cout << nw%100;
+        else if(m==3) cout << nw%1000;
+        else if(m==4) cout << nw%10000;
+        cout << "\n";
+
+    }
+    return 0;
+}
