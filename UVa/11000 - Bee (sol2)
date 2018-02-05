@@ -1,0 +1,29 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    while(cin >> n && n!=-1)
+    {
+        long long f=1;
+        long long m=0;
+
+        long long F=1;
+        long long M=0;
+
+        long long a,b;
+        while(n--)
+        {
+            a=m;
+            b=f+m;
+            f=a;
+            m=b;
+            F+=f;
+            M+=m;
+        }
+        cout << M << ' ' << M+F << "\n";
+    }
+    return 0;
+}
