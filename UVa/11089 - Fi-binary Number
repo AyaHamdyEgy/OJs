@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int t,n; cin >> t;
+    while(t--)
+    {
+        cin >> n;
+
+        bool r[101]={};
+        int a,b,c;
+        while(n>0)
+        {
+            int d=0;
+            if(n-1>=0){n--; d++;} //0
+            if(n-1>=0){n--; d++;} //1
+            if(n-1>=0){n--; d++;} //10
+
+            a=1; b=1;
+            while(1)
+            {
+                c=a+b;
+                a=b;
+                b=c;
+
+                if(n-c>=0){n-=c; d++;}
+                else break;
+            }
+            r[d]=1;
+        }
+        int i=100;
+        while(i>=0 && r[i]==0) i--;
+        for( ; i>0 ; i--)
+        {
+            if(r[i]) cout << 1;
+            else cout << 0;
+        }
+        cout << "\n";
+    }
+    return 0;
+}
