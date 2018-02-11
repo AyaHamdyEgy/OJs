@@ -1,0 +1,51 @@
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    double OO = 1.0;
+    double errP[1001];
+    double errM[1001];
+    errM[1]=1*1.6-2;
+    errP[2]=2*1.6-3;
+    errM[3]=3*1.6-5;
+
+    errP[1]=100;
+    errM[2]=-100;
+    errP[3]=100;
+
+    int x = 4;
+    for( ; x <= 1000 ; x++)
+    {
+        double e;
+        errP[x]=100.0;
+        errM[x]=-100.0;
+        for(int a=x-1 ; a>=1 ; a--)
+        {
+            e = errP[a]+errP[x-a];
+            if(e>=0) errP[x]=min(errP[x],e);
+            if(e<=0) errM[x]=max(errM[x],e);
+
+            e = errP[a]+errM[x-a];
+            if(e>=0) errP[x]=min(errP[x],e);
+            if(e<=0) errM[x]=max(errM[x],e);
+
+            e = errM[a]+errP[x-a];
+            if(e>=0) errP[x]=min(errP[x],e);
+            if(e<=0) errM[x]=max(errM[x],e);
+
+            e = errM[a]+errM[x-a];
+            if(e>=0) errP[x]=min(errP[x],e);
+            if(e<=0) errM[x]=max(errM[x],e);
+        }
+    }
+
+    int n;
+    while(cin >> n && n)
+    {
+        cout << fixed << setprecision(2) << min(errP[n],-errM[n]) << "\n";
+    }
+    return 0;
+}
