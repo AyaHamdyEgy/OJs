@@ -1,0 +1,33 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n;
+    while(cin >> n && n)
+    {
+        int a[10],b[10];
+        for(int i = 0 ; i < n ; i++) cin >> a[i];
+
+        b[0]=a[n-1];
+        for(int j = n-1 ; j > 0 ; j--)
+        {
+            for(int i = 0 ; i < j ; i++)
+                a[i]=a[i+1]-a[i];
+
+            b[n-j]=a[j-1];
+        }
+
+        int k; cin >> k;
+        for(int j = 0 ; j < k ; j++)
+        {
+            for(int i = n-2 ; i>=0 ; i--)
+            {
+                b[i]=b[i+1]+b[i];
+            }
+        }
+        cout << "Term " << n+k << " of the sequence is " << b[0] << "\n";
+    }
+    return 0;
+}
