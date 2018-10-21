@@ -1,0 +1,61 @@
+#include <iostream>
+#include <bits/stdc++.h>
+
+using namespace std;
+
+bool isLeap(int year)
+{
+    return (year%4==0) && (year%100!=0);
+}
+
+int main()
+{
+    int N,d,m,y,c,lc,ld,lm,ly;
+    int e[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+
+    while(cin >> N && N)
+    {
+        int ds=0,sum=0;
+        for(int i = 0 ; i < N ; i++)
+        {
+            cin >> d >> m >> y >> c;
+            if(i!=0)
+            {
+                if(ld==d && lm==m && ly==y)
+                {
+                    ds++; sum+=c-lc;
+                }
+            }
+            lc=c;
+            if(d==e[m] || (d==29 && m==2))
+            {
+                if(m==2)
+                {
+                    if(isLeap(y) && d==28) d++;
+                    else
+                    {
+                        d=1;
+                        m++;
+                    }
+                }
+                else
+                {
+                    d=1; m++;
+                    if(m==13)
+                    {
+                        m=1;
+                        y++;
+                    }
+                }
+
+            }
+            else d++;
+
+            ld=d;
+            lm=m;
+            ly=y;
+        }
+        cout << ds << ' ' << sum << "\n";
+    }
+    return 0;
+}
